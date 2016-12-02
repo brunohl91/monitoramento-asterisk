@@ -1,0 +1,23 @@
+{
+  "name": "Monitoramento de Ramais",
+  "version": "0.1",
+  "description": "Monitoramento de Ramais em Asterisk.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "monitoramento",
+    "ramais",
+    "asterisk",
+    "node"
+  ],
+  "author": "Bruno Herrmann Leite",
+  "license": "MIT",
+  "dependencies": {
+    "any-db-mssql": "^0.1.0",
+    "any-db-mysql": "^2.1.2",
+    "any-db-postgres": "^2.1.4",
+    "any-db-sqlite3": "^2.1.4"
+  }
+}

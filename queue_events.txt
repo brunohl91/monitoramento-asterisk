@@ -1,0 +1,247 @@
+Queue Events
+{
+  event: 'QueueParams',
+  queue: '450',
+  max: '0',
+  strategy: 'ringall',
+  calls: '0',
+  holdtime: '0',
+  talktime: '0',
+  completed: '0',
+  abandoned: '0',
+  servicelevel: '60',
+  servicelevelperf: '0.0',
+  weight: '0',
+  actionid: '1473077823154'
+}
+{
+  event: 'QueueMember',
+  queue: '450',
+  name: 'Agent/1000',
+  location: 'Agent/1000',
+  stateinterface: 'Agent/1000',
+  membership: 'static',
+  penalty: '0',
+  callstaken: '0',
+  lastcall: '0',
+  status: '5',
+  paused: '0',
+  actionid: '1473077823154'
+}
+{
+  event: 'QueueEntry',
+  queue: '444',
+  position: '1',
+  channel: 'SIP/151-00000371',
+  uniqueid: '1473078297.1158',
+  calleridnum: '151',
+  calleridname: 'Bruno Leite (SIP)',
+  connectedlinenum: '105',
+  connectedlinename: 'Rafael',
+  wait: '4',
+  actionid: '1473078300132'
+}
+{
+  event: 'QueueEntry',
+  queue: 'inbound-queue',
+  position: '1',
+  channel: 'Zap/25-1',
+  callerid: '8012317154',
+  calleridname: 'JOHN Q PUBLIC',
+  wait: '377',
+  actionid: '11223344556677889900'
+  uniqueid: ??????, // não sei se aparece na wait
+  connectedlinenum: ??????, // não sei se aparece na wait
+  connectedlinename: ??????, // não sei se aparece na wait
+}
+{ 
+  event: 'QueueStatusComplete', actionid: '1473077823154'
+}
+Queues
+440: {
+  max: '0',
+  strategy: 'ringall',
+  calls: '0',
+  holdtime: '0',
+  talktime: '0',
+  completed: '0',
+  abandoned: '0',
+  servicelevel: '60',
+  servicelevelperf: '0.0',
+  weight: '0',
+  members: [
+    {
+      name: 'Agent/1000',
+      location: 'Agent/1000',
+      stateinterface: 'Agent/1000',
+      membership: 'static',
+      penalty: '0',
+      callstaken: '0',
+      lastcall: '0',
+      status: '5',
+      paused: '0',
+      actionid: '1473077823154'
+    }
+  ],
+  callers: [
+    {
+      position: '1',
+      channel: 'SIP/151-00000371',
+      uniqueid: '1473078297.1158',
+      calleridnum: '151',
+      calleridname: 'Bruno Leite (SIP)',
+      connectedlinenum: '105',
+      connectedlinename: 'Rafael',
+      wait: '4',
+    },
+  ],
+}
+
+// Eventos
+ManagerEvent_QueueCallerAbandon {
+  *Raised when an caller abandons the queue.
+  Queue - The name of the queue.
+  Position - This channel's current position in the queue.
+  OriginalPosition - The channel's original position in the queue.
+  HoldTime - The time the channel was in the queue, expressed in seconds since 00:00, Jan 1, 1970 UTC.
+  Queue
+  Uniqueid
+  Position
+}
+ManagerEvent_QueueMemberAdded {
+  *Raised when a member is added to the queue.
+  Queue - The name of the queue.
+  Location - The queue member's channel technology or location.
+  MemberName - The name of the queue member.
+  StateInterface - Channel technology or location from which to read device state changes.
+  Membership
+    [dynamic, realtime, static]
+  Penalty - The penalty associated with the queue member.
+  CallsTaken - The number of calls this queue member has serviced.
+  LastCall - The time this member last took call, expressed in seconds since 00:00, Jan 1, 1970 UTC.
+  Status - The numeric device state status of the queue member.
+    [0 - AST_DEVICE_UNKNOWN,  1 - AST_DEVICE_NOT_INUSE,  2 - AST_DEVICE_INUSE,  3 - AST_DEVICE_BUSY,  4 - AST_DEVICE_INVALID,  5 - AST_DEVICE_UNAVAILABLE,  6 - AST_DEVICE_RINGING,  7 - AST_DEVICE_RINGINUSE,  8 - AST_DEVICE_ONHOLD]
+  Paused
+    [0, 1]
+  Queue
+  Location
+  MemberName
+  StateInterface
+  Membership
+  Penalty
+  CallsTaken
+  LastCall
+  Status
+  Paused
+}
+ManagerEvent_QueueMemberPaused {
+  *Raised when a member is paused/unpaused in the queue with a reason.
+  Queue - The name of the queue.
+  Location - The queue member's channel technology or location.
+  MemberName - The name of the queue member.
+  Paused
+    [0, 1]
+  Reason - The reason given for pausing or unpausing a queue member.
+  Queue
+  Location
+  MemberName
+  Paused
+}
+ManagerEvent_QueueMemberPenalty {
+  *Raised when a member's penalty is changed.
+  Queue - The name of the queue.
+  Location - The queue member's channel technology or location.
+  Penalty - The penalty associated with the queue member.
+  Queue
+  Location
+  Penalty
+}
+ManagerEvent_QueueMemberRemoved {
+  *Raised when a member is removed from the queue.
+  Queue - The name of the queue.
+  Location - The queue member's channel technology or location.
+  MemberName - The name of the queue member.
+  Queue
+  Location
+  MemberName
+}
+ManagerEvent_QueueMemberRinginuse {
+  *Raised when a member's ringinuse setting is changed.
+  Queue - The name of the queue.
+  Location - The queue member's channel technology or location.
+  Ringinuse
+    [0, 1]
+  Queue
+  Location
+}
+ManagerEvent_QueueMemberStatus {
+  *Raised when a Queue member's status has changed.
+  Queue - The name of the queue.
+  Location - The queue member's channel technology or location.
+  MemberName - The name of the queue member.
+  StateInterface - Channel technology or location from which to read device state changes.
+  Membership
+    [dynamic, realtime, static]
+  Penalty - The penalty associated with the queue member.
+  CallsTaken - The number of calls this queue member has serviced.
+  LastCall - The time this member last took call, expressed in seconds since 00:00, Jan 1, 1970 UTC.
+  InCall - Set to 1 if member is in call. Set to 0 after LastCall time is updated.
+    [0, 1]
+  Status - The numeric device state status of the queue member.
+    [0 - AST_DEVICE_UNKNOWN, 1 - AST_DEVICE_NOT_INUSE, 2 - AST_DEVICE_INUSE, 3 - AST_DEVICE_BUSY, 4 - AST_DEVICE_INVALID, 5 - AST_DEVICE_UNAVAILABLE, 6 - AST_DEVICE_RINGING, 7 - AST_DEVICE_RINGINUSE, 8 - AST_DEVICE_ONHOLD,] 
+  Paused
+    [0, 1]
+}
+ManagerEvent_Join {
+  *Raised when a channel joins a Queue.
+  Queue - The name of the queue.
+  Position - This channel's current position in the queue.
+  Count - The total number of channels in the queue.
+  Channel
+  CallerIDNum
+  CallerIDName
+  ConnectedLineNum
+  ConnectedLineName
+  Queue
+  Uniqueid
+}
+ManagerEvent_Leave {
+  *Raised when a channel leaves a Queue.
+  Queue - The name of the queue.
+  Count - The total number of channels in the queue.
+  Position - This channel's current position in the queue.
+  Channel
+  Queue
+  Count
+  Position
+  Uniqueid
+}
+
+FACILIDADES
+*31[FILA]  => ENTRAR NA FILA
+*32[FILA]  => SAIR DA FILA
+*33        => PAUSA TODAS AS FILAS E GERA UM EVENTO POR FILA [GERAM O MESMO EVENTO QueueMemberPaused]
+*34        => UNPAUSA [GERAM O MESMO EVENTO QueueMemberPaused]
+
+
+{ event: 'AgentComplete',
+  privilege: 'agent,all',
+  queue: '441',
+  uniqueid: '1474291594.1529',
+  channel: 'SIP/151-00000426',
+  member: 'SIP/151',
+  membername: 'SIP/151',
+  holdtime: '2',
+  talktime: '304',
+  reason: 'agent' }
+
+{ event: 'AgentConnect',
+  privilege: 'agent,all',
+  queue: '441',
+  uniqueid: '1474291366.1520',
+  channel: 'SIP/151-00000422',
+  member: 'SIP/151',
+  membername: 'SIP/151',
+  holdtime: '2',
+  bridgedchannel: '1474291366.1521',
+  ringtime: '1' }

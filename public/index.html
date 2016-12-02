@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Monitoramento de Ramais</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-app="monitor">
+    
+    <div class="container" ng-controller="MonitorCtrl">
+
+      <h3>Monitoramento de Filas</h3>
+
+      <div class="well">
+        <p><b>Opções do Módulo de Filas</b></p>
+        <p><input type="checkbox" ng-model="opcoes.filas.vazias" /> Mostrar filas vazias</p>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" ng-repeat="(key, fila) in info.filas" ng-show="opcoes.filas.vazias || fila.members.length || fila.callers.length">
+          <div class="panel panel-primary container-fila">
+            <div class="panel-heading">
+              <b>Fila {{key}}<span ng-show="fila.name"> - {{fila.name}}</span></b>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-sm-6 col-md-6 clear">
+                  <ul class="list-group">
+                    <li class="list-group-item header">
+                      Atendentes
+                    </li>
+                    <li ng-repeat="member in fila.members" title="{{member.status | agentStatus: 'desc'}}"
+                      class="list-group-item {{member.status | agentStatus: 'class'}}">
+                      <i class="{{member.status | agentStatus: 'icon'}}"></i>
+                      {{member.name}}
+                      {{member.bridged}}
+                      <span class="right">
+                        <i ng-show="{{member.paused == 1}}">(Em Pausa)</i>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                  <ul class="list-group">
+                    <li class="list-group-item list-group-item header">
+                      Ligações em Espera
+                    </li>
+                    <li class="list-group-item" ng-repeat="caller in fila.callers">
+                      {{caller.numero}} desde {{caller.timestamp | date:'HH:mm:ss'}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Monitoramento de Ramais</h3>
+      <div class="well">
+        <p><b>Opções do Módulo de Ramais</b></p>
+        <p>
+          <input type="checkbox" ng-model="opcoes.ramais.indisponiveis" /> 
+          Mostrar ramais indisponíveis ({{opcoes.ramais.indisponiveis}})
+        </p>
+      </div>
+      <div class="row">
+        <div ng-repeat="(key, ramal) in info.ramais" 
+             ng-show="opcoes.ramais.indisponiveis || ramal.status != 'Unavailable'" 
+             class="col-lg-1 col-md-1 col-sm-2 col-xs-4 container-ramal"
+             title="{{ramal.name}}">
+          <a class="btn btn-lg btn-block btn-monitor {{ramal.status | ramalStatus: 'classe'}}">
+            <span>{{key}}</span>
+            <span class="label-nome-ramal">
+              {{ramal.name | limitTo: 8}}
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <h3>Monitoramento de Parking</h3>
+      <div class="row">
+        <div ng-repeat="(key, park) in info.parking" 
+             ng-show="opcoes.parking.indisponiveis || park.status != 'Unavailable'" 
+             class="col-lg-1 col-md-1 col-sm-2 col-xs-4 container-ramal">
+          <a class="btn btn-lg btn-block btn-monitor {{park.status | ramalStatus: 'classe'}}">
+            <span>{{key}}</span>
+            <span class="label-nome-ramal">Park</span>
+          </a>
+        </div>
+      </div>
+
+      <br/>
+      <br/>
+
+    </div>
+
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/socket-io.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="app/app.js"></script>
+
+  </body>
+</html>
