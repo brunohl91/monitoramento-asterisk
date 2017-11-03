@@ -22,7 +22,7 @@ angular.module('monitor', [])
     "parking": {},
   }
 
-  $scope.socket = io.connect('http://localhost:3000');
+  $scope.socket = io.connect('http://localhost:3050');
 
   $scope.socket.on('info', function (msg) {
     $scope.atribuirExtensoes( msg.ramais );
